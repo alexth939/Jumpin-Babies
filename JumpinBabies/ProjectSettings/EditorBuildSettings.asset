@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 95f138d330c3f5a4e9d40e9ce5e03a7b
+  - enabled: 1
+    path: Assets/Scenes/Refactored/RefactorStartupScene.unity
+    guid: 2f8bbd3ad2927894886f6887645821f6
+  - enabled: 1
+    path: Assets/Scenes/Refactored/RefactorMainScene.unity
+    guid: 1004fe3632a6b774ea8194ca74351c45
+  - enabled: 1
+    path: Assets/Scenes/Refactored/RefactorGameScene.unity
+    guid: fbb75f3b343ab494fb54111e58196588
   m_configObjects: {}
