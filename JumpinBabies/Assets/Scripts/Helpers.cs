@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-class Helpers
+class Helpers: IDisposable
 {
      public enum Importance
      {
@@ -19,45 +19,32 @@ class Helpers
           High
      }
 
-     public static void ConfirmNotNull<T>(T itemToCheck, Importance criticalLevel, string customMessage ="")
+     public void NullCheck<T>(T parameter, Importance criticalLevel)
      {
-          if(itemToCheck is null)
+          if(parameter == null)
           {
-               var resultMessage = GenerateNullResultMessage(wasNegativeCheck: true, customMessage, typeof(T));
-               ShowNullCheckResults(resultMessage, criticalLevel);
+               switch(criticalLevel)
+               {
+                    case Importance.Low:
+                    {
+                         Debug.Log($"NullCheck: {typeof(T)} is null");
+                         break;
+                    }
+                    case Importance.Medium:
+                    {
+                         Debug.LogWarning($"NullCheck: {typeof(T)} is null");
+                         break;
+                    }
+                    case Importance.High:
+                    {
+                         throw new Exception($"NullCheck: {typeof(T)} is null");
+                    }
+               }
           }
      }
-     public static void ConfirmNull<T>(T itemToCheck, Importance criticalLevel, string customMessage = "")
-     {
-          if(itemToCheck is null)
-               return;
 
-          var resultMessage = GenerateNullResultMessage(wasNegativeCheck: false, customMessage, typeof(T));
-          ShowNullCheckResults(resultMessage, criticalLevel);
-     }
-     private static string GenerateNullResultMessage(bool wasNegativeCheck, string customMessage, Type itemType)
+#warning NullCheck.LogToFile() not implemented
+     public void Dispose()
      {
-          string negativeInsertation = wasNegativeCheck ? "not " : string.Empty;
-          return $"NullCheck: {itemType} is {negativeInsertation}null. {customMessage}";
-     }
-     private static void ShowNullCheckResults(string resultsMessage, Importance criticalLevel)
-     {
-          switch(criticalLevel)
-          {
-               case Importance.Low:
-               {
-                    Debug.Log(resultsMessage);
-                    break;
-               }
-               case Importance.Medium:
-               {
-                    Debug.LogWarning(resultsMessage);
-                    break;
-               }
-               case Importance.High:
-               {
-                    throw new Exception(resultsMessage);
-               }
-          }
      }
 }
