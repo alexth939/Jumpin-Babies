@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS0108: Member hides inherited member; missing new keyword
+dotnet_diagnostic.CS0108.severity = error
+
+# UNT0001: Empty Unity message
+dotnet_diagnostic.UNT0001.severity = warning

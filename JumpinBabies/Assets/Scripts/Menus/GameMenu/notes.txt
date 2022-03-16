@@ -1,0 +1,1 @@
+Game Menu: the pause button in play state and pause menu elements are part of one menu

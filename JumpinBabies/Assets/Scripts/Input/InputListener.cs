@@ -1,100 +1,46 @@
 using System;
-using System.Linq;
-using UnityEngine;
 
 sealed class InputListener: MonoBehaviour
 {
-     public bool Active { get; private set; }
-     private Action _inputHandler;
-     //private void Start()
-     //{
-     //     Bind((null, () => Debug.Log("asd")));
-     //}
-     public void Bind((Action left, Action right) moveDelegates)
+     // isActiveAndEnabled can be used, but I dont want to mess with monobehaviours isActive flag
+     public bool Active { get; private set; } = false;
+     private Action _handleInput;
+
+     //Entry Point:
+     public void Bind(in (Action stepLeft, Action stepRight) moveDelegates, out (Action halt, Action listen) inputListenerControls, bool autoStart = true)
      {
-          new InputMethodsProvider(out _inputHandler, moveDelegates);
-          Active = true;
+          Helpers.ConfirmNotNull(moveDelegates.stepLeft, Helpers.Importance.High);
+          Helpers.ConfirmNotNull(moveDelegates.stepRight, Helpers.Importance.High);
+          Helpers.ConfirmNull(_handleInput, Helpers.Importance.Medium, "InputListener: better connect only one parent");
+
+          //create instance if u planning to switch or reconfigure input method.
+          new InputMethodProvider(moveDelegates, out _handleInput);
+          inputListenerControls = (Halt, Listen);
+
+          if(autoStart)
+               Active = true;
      }
-     public void Pause()
+
+     #region MonoBehaviour
+     private void Update()
+     {
+          if(Active)
+               _handleInput();
+     }
+     private void OnDestroy()
+     {
+          _handleInput -= _handleInput;
+     }
+     #endregion
+
+     private void Halt()
      {
           Active = false;
      }
-     public void Continue()
+     private void Listen()
      {
-          using(Helpers helpers = new Helpers())
-          {
-               helpers.NullCheck(_inputHandler, Helpers.Importance.High);
+          Helpers.ConfirmNotNull(_handleInput, Helpers.Importance.High);
 
-               Active = true;
-          }
-     }
-
-     private void Update()
-     {
-          if(Active == false)
-               return;
-
-          _inputHandler.Invoke();
-     }
-
-     private void OnApplicationQuit()
-     {
-          _inputHandler -= _inputHandler;
-     }
-}
-
-sealed class InputMethodsProvider
-{
-     private Touch _singleTouch => Input.touches.Single();
-     private Action _moveLeft;
-     private Action _moveRight;
-
-     public InputMethodsProvider(out Action inputDelegate, (Action left, Action right) moveDelegates)
-     {
-          using(Helpers helpers = new Helpers())
-          {
-               helpers.NullCheck(moveDelegates.left, Helpers.Importance.High);
-               helpers.NullCheck(moveDelegates.right, Helpers.Importance.High);
-          }
-
-          _moveLeft = moveDelegates.left;
-          _moveRight = moveDelegates.right;
-
-#if UNITY_EDITOR
-          inputDelegate = _pc;
-#elif UNITY_STANDALONE
-          inputDelegate = Android;
-#endif
-     }
-     private Action _pc => () =>
-     {
-          if(Input.GetKeyDown(KeyCode.LeftArrow))
-               _moveLeft();
-          if(Input.GetKeyDown(KeyCode.RightArrow))
-               _moveRight();
-     };
-     private Action _android => () =>
-     {
-          switch(Input.touches.Length)
-          {
-               case 1 when _singleTouch.phase == TouchPhase.Began:
-               {
-                    if(_singleTouch.position.x < Screen.width / 2)
-                         _moveLeft();
-                    else
-                         _moveRight();
-                    break;
-               }
-               //case 2:
-               //{
-               //     //pass pause command
-               //     break;
-               //}
-          }
-     };
-     ~InputMethodsProvider()
-     {
-          _moveLeft -= _moveLeft;
-          _moveRight -= _moveRight;
+          Active = true;
      }
 }

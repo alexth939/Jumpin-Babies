@@ -30,16 +30,16 @@ public class FlyingBaby: MonoBehaviour
                this.transform.Rotate(Vector3.back * 5.0f * y, Space.Self);
 
                //check if someone catching me
-               if(((actPos) - (actPos).round()).abs() < 0.01f)
+               if(((actPos) - (actPos).Round()).Abs() < 0.01f)
                {
-                    if(actPos.roundInt() == 2)
+                    if(actPos.RoundToInt() == 2)
                     {
                          //baby saved
                          gameFlowRef.AddPointToPlayer();
                          gameFlowRef.flyingBabyCount -= 1;
                          Destroy(this.gameObject);
                     }
-                    else if((actPos).roundInt() + 1 != gameFlowRef.curPlayerPos)
+                    else if((actPos).RoundToInt() + 1 != gameFlowRef.curPlayerPos)
                     {
                          //baby dead
                          dead = true;
@@ -58,7 +58,7 @@ public class FlyingBaby: MonoBehaviour
      float CalcYPos(float _x)
      {
           //_x += 0.1f;
-          return -4 * _x.pow() + 4 * _x;
+          return -4 * _x.Pow() + 4 * _x;
      }
 
      //[ExecuteInEditMode]
