@@ -1,5 +1,4 @@
-using ProjectPact;
-using MainMenu;
+using JumpinBabies.MainMenu;
 
 namespace JumpinBabies.SceneWorkers
 {

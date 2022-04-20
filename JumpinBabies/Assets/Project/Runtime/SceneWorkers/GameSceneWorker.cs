@@ -1,6 +1,6 @@
 namespace JumpinBabies.SceneWorkers
 {
-     sealed class GameSceneWorker: ProjectPact.SceneWorker
+     sealed class GameSceneWorker: SceneWorker
      {
           protected override void SetupScene()
           {

@@ -1,10 +1,10 @@
 using GameData;
 using UnityEngine.SceneManagement;
-using static JumpinBabies.Common.DelegateGenerator;
+using static System.Threading.Tasks.DelegateGenerator;
 
 namespace JumpinBabies.SceneWorkers
 {
-     public class StartupSceneWorker: ProjectPact.SceneWorker
+     public class StartupSceneWorker: SceneWorker
      {
           protected override void SetupScene()
           {
