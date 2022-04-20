@@ -4,19 +4,7 @@ using System.Threading.Tasks;
 
 sealed class Test: ProjectPact.SceneWorker
 {
-     protected override void SetupScene()
-     {
-          throw new NotImplementedException();
-     }
-     protected override void LeaveScene(ref string nextScene)
-     {
-          throw new NotImplementedException();
-     }
-
-     protected override void OnApplicationFocus(bool focus)
-     {
-          throw new NotImplementedException();
-     }
+     
 }
 
 class DelegatePlayerSlim

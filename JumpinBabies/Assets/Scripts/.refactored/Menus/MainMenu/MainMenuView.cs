@@ -1,6 +1,6 @@
 using UnityEngine;
 
-sealed class MainMenuView: MonoBehaviour
+public class MainMenuView: MonoBehaviour
 {
      public GameObject StartBtn;
      public GameObject OptionsBtn;
