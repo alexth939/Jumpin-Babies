@@ -1,6 +1,6 @@
 using System;
 
-namespace MainMenu
+namespace JumpinBabies.MainMenu
 {
      public static class MainMenuHelpers
      {

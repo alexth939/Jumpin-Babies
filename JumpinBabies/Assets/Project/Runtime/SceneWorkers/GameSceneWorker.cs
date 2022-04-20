@@ -1,24 +1,25 @@
-using UnityEngine.SceneManagement;
-
-sealed class GameSceneWorker: ProjectPact.SceneWorker
+namespace JumpinBabies.SceneWorkers
 {
-     protected override void SetupScene()
+     sealed class GameSceneWorker: ProjectPact.SceneWorker
      {
-          throw new System.NotImplementedException();
-     }
+          protected override void SetupScene()
+          {
+               throw new System.NotImplementedException();
+          }
 
-     protected override void OnApplicationAcquiredFocus()
-     {
-          throw new System.NotImplementedException();
-     }
+          protected override void OnApplicationAcquiredFocus()
+          {
+               throw new System.NotImplementedException();
+          }
 
-     protected override void OnApplicationLostFocus()
-     {
-          throw new System.NotImplementedException();
-     }
+          protected override void OnApplicationLostFocus()
+          {
+               throw new System.NotImplementedException();
+          }
 
-     protected override void PrepareLeaveScene()
-     {
-          throw new System.NotImplementedException();
+          protected override void PrepareLeaveScene()
+          {
+               throw new System.NotImplementedException();
+          }
      }
 }

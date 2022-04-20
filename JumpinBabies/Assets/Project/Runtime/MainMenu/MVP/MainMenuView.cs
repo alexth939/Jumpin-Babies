@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MainMenu
+namespace JumpinBabies.MainMenu
 {
      public class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
      {

@@ -1,6 +1,6 @@
 using System;
 
-namespace MoreUnityEngine
+namespace UnityEngine
 {
      public class MoreObject
      {

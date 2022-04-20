@@ -1,4 +1,4 @@
-namespace MainMenu
+namespace JumpinBabies.MainMenu
 {
      public class MainMenuModel
      {

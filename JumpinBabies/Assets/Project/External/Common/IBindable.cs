@@ -13,14 +13,17 @@
 //   In both cases those public members are exposed to
 //   everyone who can GetComponent or FindObject of th instance on scene.
 
-// Special method for gaining access to objects' incapsulated, by interface, methods.
-public interface IBindable<ObjectInterface>
+namespace UnityEngine
 {
-     ObjectInterface Bind();
-}
+     // Special method for gaining access to objects' incapsulated, by interface, methods.
+     public interface IBindable<ObjectInterface>
+     {
+          ObjectInterface Bind();
+     }
 
-// In case you need to interact with sender.
-public interface IBinder<ObjectInterface, SenderInterface>
-{
-     ObjectInterface Bind(SenderInterface sender);
+     // In case you need to interact with sender.
+     public interface IBinder<ObjectInterface, SenderInterface>
+     {
+          ObjectInterface Bind(SenderInterface sender);
+     }
 }

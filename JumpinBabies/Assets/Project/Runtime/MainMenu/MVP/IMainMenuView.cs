@@ -1,4 +1,7 @@
-public interface IMainMenuView
+namespace JumpinBabies.MainMenu
 {
+     public interface IMainMenuView
+     {
 
+     }
 }

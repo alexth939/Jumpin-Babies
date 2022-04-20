@@ -8,7 +8,7 @@ namespace UnityEngine.SceneManagement
           RefactorMainScene,
           RefactorGameScene,
           MainMenuScene,
-          GameScene,
+          GameScene
      }
 
      internal static class SceneManagementExtensions

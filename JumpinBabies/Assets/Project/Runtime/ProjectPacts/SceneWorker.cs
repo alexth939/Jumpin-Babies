@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace ProjectPact
+namespace JumpinBabies.SceneWorkers
 {
      public abstract class SceneWorker: MonoBehaviour
      {

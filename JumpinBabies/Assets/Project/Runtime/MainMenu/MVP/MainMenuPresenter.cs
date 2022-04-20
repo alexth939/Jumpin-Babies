@@ -3,7 +3,7 @@ using MoreUnityEngine;
 using UnityEngine.Events;
 using GameData;
 
-namespace MainMenu
+namespace JumpinBabies.MainMenu
 {
      public sealed class MainMenuPresenter: IMainMenuPresenter
      {

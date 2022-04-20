@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.UI;
 
-namespace MainMenu
+namespace JumpinBabies.MainMenu
 {
      [Serializable]
      public struct MainMenuButtons

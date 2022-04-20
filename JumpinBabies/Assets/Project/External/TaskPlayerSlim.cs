@@ -2,61 +2,64 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public class TaskPlayerSlim: IDisposable
+namespace System.Threading.Tasks
 {
-     public bool IsPlaying { get; private set; }
-
-     private Action _emptyDelegate => delegate { };
-     private Queue<(Action method, float duration)> _animations;
-
-     public TaskPlayerSlim()
+     public class TaskPlayerSlim: IDisposable
      {
-          _animations = new();
-     }
+          public bool IsPlaying { get; private set; }
 
-     /// <summary>
-     /// FIFO. I don't care if some Action not finished
-     /// </summary>
-     public async void Play()
-     {
-          ConfirmNotBusy();
+          private Action _emptyDelegate => delegate { };
+          private Queue<(Action method, float duration)> _animations;
 
-          IsPlaying = true;
+          public TaskPlayerSlim()
           {
-               while(_animations.TryDequeue(out var animation))
-               {
-                    _ = Task.Run(animation.method);
-                    await Task.Delay((int)(animation.duration * 1000));
-               }
+               _animations = new();
           }
-          IsPlaying = false;
-     }
-     public TaskPlayerSlim QueueAnimation(Action method, float durationSex = default)
-     {
-          if(method is null)
-               throw new Exception("missing delegate!");
 
-          ConfirmNotBusy();
+          /// <summary>
+          /// FIFO. I don't care if some Action not finished
+          /// </summary>
+          public async void Play()
+          {
+               ConfirmNotBusy();
 
-          _animations.Enqueue((method, durationSex));
+               IsPlaying = true;
+               {
+                    while(_animations.TryDequeue(out var animation))
+                    {
+                         _ = Task.Run(animation.method);
+                         await Task.Delay((int)(animation.duration * 1000));
+                    }
+               }
+               IsPlaying = false;
+          }
+          public TaskPlayerSlim QueueAnimation(Action method, float durationSex = default)
+          {
+               if(method is null)
+                    throw new Exception("missing delegate!");
 
-          return this;
-     }
-     public TaskPlayerSlim QueueDelay(float seconds)
-     {
-          ConfirmNotBusy();
-          _animations.Enqueue((_emptyDelegate, seconds));
-          return this;
-     }
+               ConfirmNotBusy();
 
-     private void ConfirmNotBusy()
-     {
-          if(IsPlaying)
-               throw new Exception("leave me alone! I'm busy. use tha IsPlaying flag");
-     }
+               _animations.Enqueue((method, durationSex));
 
-     public void Dispose()
-     {
-          _animations.Clear();
+               return this;
+          }
+          public TaskPlayerSlim QueueDelay(float seconds)
+          {
+               ConfirmNotBusy();
+               _animations.Enqueue((_emptyDelegate, seconds));
+               return this;
+          }
+
+          private void ConfirmNotBusy()
+          {
+               if(IsPlaying)
+                    throw new Exception("leave me alone! I'm busy. use tha IsPlaying flag");
+          }
+
+          public void Dispose()
+          {
+               _animations.Clear();
+          }
      }
 }
