@@ -13,7 +13,7 @@ namespace GameData
           public void ExportItem(string fullPath, ISerializable dataContainer)
           {
                var formatter = new FormatterType();
-               var outputStream = new FileStream(fullPath, FileMode.Create);
+               var outputStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None);
 
                formatter.Serialize(outputStream, dataContainer);
                outputStream.Close();
@@ -22,7 +22,7 @@ namespace GameData
           public ISerializable ImportItem(string fullPath)
           {
                var formatter = new FormatterType();
-               var inputStream = new FileStream(fullPath, FileMode.Open);
+               var inputStream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.None);
 
                var instance = (ISerializable)formatter.Deserialize(inputStream);
                inputStream.Close();
