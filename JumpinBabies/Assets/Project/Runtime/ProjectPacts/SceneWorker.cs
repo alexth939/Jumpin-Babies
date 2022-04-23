@@ -5,19 +5,10 @@ namespace JumpinBabies.SceneWorkers
 {
      public abstract class SceneWorker: MonoBehaviour
      {
-          /// <summary>
-          /// auto-invoked at base.Start().
-          /// </summary>
-          protected abstract void SetupScene();
-          protected abstract void OnApplicationAcquiredFocus();
-          protected abstract void OnApplicationLostFocus();
-
-          protected void SwitchScene(SceneName nextScene)
+          protected void Start()
           {
-               PrepareLeaveScene();
-               SceneManager.LoadScene(nextScene.AsString(), LoadSceneMode.Single);
+               SetupScene();
           }
-          protected abstract void PrepareLeaveScene();
 
           protected void OnApplicationFocus(bool focus)
           {
@@ -26,9 +17,19 @@ namespace JumpinBabies.SceneWorkers
                else
                     OnApplicationLostFocus();
           }
-          protected void Start()
+
+          protected void SwitchScene(SceneName nextScene)
           {
-               SetupScene();
+               PrepareLeaveScene();
+               SceneManager.LoadScene(nextScene.AsString(), LoadSceneMode.Single);
           }
+
+          /// <summary>
+          /// auto-invoked at base.Start().
+          /// </summary>
+          protected abstract void SetupScene();
+          protected virtual void OnApplicationAcquiredFocus() { }
+          protected virtual void OnApplicationLostFocus() { }
+          protected virtual void PrepareLeaveScene() { }
      }
 }

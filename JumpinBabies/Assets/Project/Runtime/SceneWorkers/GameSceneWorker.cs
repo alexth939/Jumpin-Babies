@@ -6,20 +6,5 @@ namespace JumpinBabies.SceneWorkers
           {
                throw new System.NotImplementedException();
           }
-
-          protected override void OnApplicationAcquiredFocus()
-          {
-               throw new System.NotImplementedException();
-          }
-
-          protected override void OnApplicationLostFocus()
-          {
-               throw new System.NotImplementedException();
-          }
-
-          protected override void PrepareLeaveScene()
-          {
-               throw new System.NotImplementedException();
-          }
      }
 }

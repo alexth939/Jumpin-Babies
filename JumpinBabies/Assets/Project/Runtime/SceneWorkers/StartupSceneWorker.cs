@@ -18,20 +18,5 @@ namespace JumpinBabies.SceneWorkers
 
                gameProgress.ImportAsync(onImported: attemptToLeave);
           }
-
-          protected override void OnApplicationAcquiredFocus()
-          {
-               //do nothing
-          }
-
-          protected override void OnApplicationLostFocus()
-          {
-               //do nothing
-          }
-
-          protected override void PrepareLeaveScene()
-          {
-               throw new System.NotImplementedException();
-          }
      }
 }

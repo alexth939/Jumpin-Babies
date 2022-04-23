@@ -8,20 +8,5 @@ namespace JumpinBabies.SceneWorkers
           {
                new MainMenuPresenter().InitView();
           }
-
-          protected override void OnApplicationAcquiredFocus()
-          {
-               //do nothing
-          }
-
-          protected override void OnApplicationLostFocus()
-          {
-               //do nothing
-          }
-
-          protected override void PrepareLeaveScene()
-          {
-               throw new System.NotImplementedException();
-          }
      }
 }
