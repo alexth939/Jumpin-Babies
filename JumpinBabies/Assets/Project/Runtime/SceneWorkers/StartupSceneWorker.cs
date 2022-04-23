@@ -11,7 +11,7 @@ namespace JumpinBabies.SceneWorkers
                var gameSettings = GameSettingsProvider.SingleInstance;
                var gameProgress = GameProgressProvider.SingleInstance;
 
-               var attemptToLeave = GenerateCounterDelayedAction(delayCounter: 2, () => SwitchScene(SceneName.RefactorMainScene));
+               var attemptToLeave = GenerateCounterDelayedAction(delayCounter: 1, () => SwitchScene(SceneName.RefactorMainScene));
 
                gameSettings.ImportAsync(onImported: () =>
                     gameSettings.ApplyAsync(onApplied: attemptToLeave));
