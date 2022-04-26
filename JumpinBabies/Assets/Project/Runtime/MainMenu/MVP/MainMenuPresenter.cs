@@ -1,13 +1,12 @@
 using System;
 using GameData;
 using UnityEngine;
-using System.Threading.Tasks;
 
 namespace JumpinBabies.MainMenu
 {
      public sealed class MainMenuPresenter: IMainMenuPresenter
      {
-          private readonly MainMenuView _view;
+          private readonly IMainMenuView _view;
           private readonly MainMenuModel _model;
           private readonly GameSettingsModel _settingsTemplate;
           private readonly GameSettingsProvider _settingsProvider;
@@ -17,30 +16,12 @@ namespace JumpinBabies.MainMenu
                _model = new MainMenuModel();
                BindToView(out _view);
                _settingsProvider = GameSettingsProvider.SingleInstance;
-               _settingsTemplate = _settingsProvider.AllSettings;
+               //_settingsTemplate = _settingsProvider.AllSettings;
           }
 
-          public void InitView()
+          private void BindToView(out IMainMenuView view)
           {
-               _model.EnsureStateIs(MainMenuState.Covered);
-
-               // 1. reveal the menu
-               // 2. fill the settings in view
-               // 3. RandomizeBtnsAnimOffset
-
-               using(var player = new TaskPlayerSlim())
-               {
-                    //player.QueueAnimation(reveal).
-                    //       QueueAnimation(fillSettings ?).
-                    //       QueueAnimation(randomize).
-                    //       Play();
-               }
-          }
-
-          private void BindToView(out MainMenuView view)
-          {
-               view = MoreObject.FindSingleSceneObject<MainMenuView>();
-               view.Bind(this);
+               view = MoreObject.FindSingleSceneObject<MainMenuView>().Bind(this);
           }
 
           // todo expand method:
