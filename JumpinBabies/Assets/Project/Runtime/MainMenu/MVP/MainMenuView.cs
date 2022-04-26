@@ -35,23 +35,15 @@ namespace JumpinBabies.MainMenu
 
           private void InitControlsAnimation()
           {
-               Scenario buttonsScenario = new Scenario();
-               float buttonAnimationOffsetDifference = 0.5f;
+               float[] randomOffset = new float[] { 0.21f, 0.23f, 0.25f };
+
                var playButton = _controls.Play;
                var enterOptionsButton = _controls.EnterOptions;
                var exitButton = _controls.Exit;
 
-               //buttonsScenario.AddAct(() => _buttons.PlayBtn.GetComponent<Animator>().enabled = true);
-               buttonsScenario.AddAct(() => playButton.GetComponent<Animator>().SetTrigger("StartTrigger"));
-               buttonsScenario.AddDelay(buttonAnimationOffsetDifference);
-
-               //buttonsScenario.AddAct(() => _buttons.EnterOptionsBtn.GetComponent<Animator>().enabled = true);
-               buttonsScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().SetTrigger("StartTrigger"));
-               buttonsScenario.AddDelay(buttonAnimationOffsetDifference);
-               //buttonsScenario.AddAct(() => _buttons.ExitBtn.GetComponent<Animator>().enabled = true);
-               buttonsScenario.AddAct(() => exitButton.GetComponent<Animator>().SetTrigger("StartTrigger"));
-
-               buttonsScenario.Play(CoroutineOwner: this);
+               playButton.GetComponent<Animator>().speed += randomOffset[0];
+               enterOptionsButton.GetComponent<Animator>().speed += randomOffset[1];
+               exitButton.GetComponent<Animator>().speed += randomOffset[2];
           }
 
           private void OnDestroy()
