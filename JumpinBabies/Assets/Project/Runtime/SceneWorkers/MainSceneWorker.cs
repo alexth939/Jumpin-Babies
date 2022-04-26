@@ -5,7 +5,9 @@ namespace JumpinBabies.SceneWorkers
 {
      sealed class MainSceneWorker: SceneWorker
      {
-          protected override void SetupScene()
+          [SerializeField] private ScreenCoverer screenCoverer;
+
+          protected override void EnteringScene()
           {
                (float blackCover, float fakeCover) revealDurations = (2.0f, 3.0f);
                (float menuInit, float fakeCover) delays = (2.0f, 1.0f);

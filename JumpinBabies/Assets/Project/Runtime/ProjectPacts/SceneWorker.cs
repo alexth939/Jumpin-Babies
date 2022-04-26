@@ -3,11 +3,12 @@ using UnityEngine.SceneManagement;
 
 namespace JumpinBabies.SceneWorkers
 {
+     [DisallowMultipleComponent]
      public abstract class SceneWorker: MonoBehaviour
      {
           protected void Start()
           {
-               SetupScene();
+               EnteringScene();
           }
 
           protected void OnApplicationFocus(bool focus)
@@ -20,16 +21,16 @@ namespace JumpinBabies.SceneWorkers
 
           protected void SwitchScene(SceneName nextScene)
           {
-               PrepareLeaveScene();
+               LeavingScene();
                SceneManager.LoadScene(nextScene.AsString(), LoadSceneMode.Single);
           }
 
           /// <summary>
           /// auto-invoked at base.Start().
           /// </summary>
-          protected abstract void SetupScene();
+          protected abstract void EnteringScene();
           protected virtual void OnApplicationAcquiredFocus() { }
           protected virtual void OnApplicationLostFocus() { }
-          protected virtual void PrepareLeaveScene() { }
+          protected virtual void LeavingScene() { }
      }
 }

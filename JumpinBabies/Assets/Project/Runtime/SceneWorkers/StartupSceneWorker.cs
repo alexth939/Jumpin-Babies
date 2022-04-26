@@ -6,7 +6,7 @@ namespace JumpinBabies.SceneWorkers
 {
      public class StartupSceneWorker: SceneWorker
      {
-          protected override void SetupScene()
+          protected override void EnteringScene()
           {
                var gameSettings = GameSettingsProvider.SingleInstance;
                var gameProgress = GameProgressProvider.SingleInstance;
