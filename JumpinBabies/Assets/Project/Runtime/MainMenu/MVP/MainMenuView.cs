@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace JumpinBabies.MainMenu
 {
      public class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
      {
-          [SerializeField] private MainMenuButtons _buttons;
+          [SerializeField] private MainMenuControls _controls;
           private IMainMenuPresenter _presenter;
 
           public IMainMenuView Bind(IMainMenuPresenter sender)
@@ -15,26 +16,52 @@ namespace JumpinBabies.MainMenu
 
                _presenter = sender;
 
-               _buttons.EnterOptionsBtn.onClick.AddListener(_presenter.TransitToSettings);
-               _buttons.ExitOptionsBtn.onClick.AddListener(_presenter.TransitToMain);
-               _buttons.SoundToggle.onValueChanged.AddListener(_presenter.ToggleSound);
-               _buttons.VibrationToggle.onValueChanged.AddListener(_presenter.ToggleVibration);
-               _buttons.PlayBtn.onClick.AddListener(_presenter.StartGame);
-               _buttons.ExitBtn.onClick.AddListener(_presenter.ExitGame);
-
-               Debug.Log($"MainMenuView: Successfully Bound to presenter ;)");
+               InitControlsSubscribers();
+               InitControlsAnimation();
 
                return this;
           }
 
+          private void InitControlsSubscribers()
+          {
+               _controls.EnterOptions.onClick.AddListener(_presenter.TransitToSettings);
+               _controls.ExitOptions.onClick.AddListener(_presenter.TransitToMain);
+               _controls.Sound.onValueChanged.AddListener(_presenter.ToggleSound);
+
+               _controls.Vibration.onValueChanged.AddListener(_presenter.ToggleVibration);
+               _controls.Play.onClick.AddListener(_presenter.StartGame);
+               _controls.Exit.onClick.AddListener(_presenter.ExitGame);
+          }
+
+          private void InitControlsAnimation()
+          {
+               Scenario buttonsScenario = new Scenario();
+               float buttonAnimationOffsetDifference = 0.5f;
+               var playButton = _controls.Play;
+               var enterOptionsButton = _controls.EnterOptions;
+               var exitButton = _controls.Exit;
+
+               //buttonsScenario.AddAct(() => _buttons.PlayBtn.GetComponent<Animator>().enabled = true);
+               buttonsScenario.AddAct(() => playButton.GetComponent<Animator>().SetTrigger("StartTrigger"));
+               buttonsScenario.AddDelay(buttonAnimationOffsetDifference);
+
+               //buttonsScenario.AddAct(() => _buttons.EnterOptionsBtn.GetComponent<Animator>().enabled = true);
+               buttonsScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().SetTrigger("StartTrigger"));
+               buttonsScenario.AddDelay(buttonAnimationOffsetDifference);
+               //buttonsScenario.AddAct(() => _buttons.ExitBtn.GetComponent<Animator>().enabled = true);
+               buttonsScenario.AddAct(() => exitButton.GetComponent<Animator>().SetTrigger("StartTrigger"));
+
+               buttonsScenario.Play(CoroutineOwner: this);
+          }
+
           private void OnDestroy()
           {
-               _buttons.EnterOptionsBtn.onClick.RemoveAllListeners();
-               _buttons.ExitOptionsBtn.onClick.RemoveAllListeners();
-               _buttons.SoundToggle.onValueChanged.RemoveAllListeners();
-               _buttons.VibrationToggle.onValueChanged.RemoveAllListeners();
-               _buttons.PlayBtn.onClick.RemoveAllListeners();
-               _buttons.ExitBtn.onClick.RemoveAllListeners();
+               _controls.EnterOptions.onClick.RemoveAllListeners();
+               _controls.ExitOptions.onClick.RemoveAllListeners();
+               _controls.Sound.onValueChanged.RemoveAllListeners();
+               _controls.Vibration.onValueChanged.RemoveAllListeners();
+               _controls.Play.onClick.RemoveAllListeners();
+               _controls.Exit.onClick.RemoveAllListeners();
           }
      }
 }
