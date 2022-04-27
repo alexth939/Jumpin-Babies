@@ -17,7 +17,7 @@ namespace JumpinBabies.MainMenu
                _presenter = sender;
 
                InitControlsSubscribers();
-               InitControlsAnimation();
+               RandomizeButtonsAnimationOffset();
 
                return this;
           }
@@ -33,17 +33,27 @@ namespace JumpinBabies.MainMenu
                _controls.Exit.onClick.AddListener(_presenter.ExitGame);
           }
 
-          private void InitControlsAnimation()
+          private void RandomizeButtonsAnimationOffset()
           {
-               float[] randomOffset = new float[] { 0.21f, 0.23f, 0.25f };
+               float[] randomOffset = new float[] { 1.21f, 2.23f, 3.25f };
 
                var playButton = _controls.Play;
                var enterOptionsButton = _controls.EnterOptions;
                var exitButton = _controls.Exit;
 
-               playButton.GetComponent<Animator>().speed += randomOffset[0];
-               enterOptionsButton.GetComponent<Animator>().speed += randomOffset[1];
-               exitButton.GetComponent<Animator>().speed += randomOffset[2];
+               Scenario randomizeScenario = new Scenario();
+
+               randomizeScenario.AddAct(() => playButton.GetComponent<Animator>().speed += randomOffset[0]);
+               randomizeScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed += randomOffset[1]);
+               randomizeScenario.AddAct(() => exitButton.GetComponent<Animator>().speed += randomOffset[2]);
+
+               randomizeScenario.AddDelay(0.3f);
+
+               randomizeScenario.AddAct(() => playButton.GetComponent<Animator>().speed -= randomOffset[0]);
+               randomizeScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed -= randomOffset[1]);
+               randomizeScenario.AddAct(() => exitButton.GetComponent<Animator>().speed -= randomOffset[2]);
+
+               randomizeScenario.Play(this);
           }
 
           private void OnDestroy()
