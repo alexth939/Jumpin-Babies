@@ -9,18 +9,23 @@ namespace JumpinBabies.SceneWorkers
 
           protected override void EnteringScene()
           {
-               (float blackCover, float fakeCover) revealDurations = (2.0f, 3.0f);
-               (float menuInit, float fakeCover) delays = (2.0f, 1.0f);
+               float blackCoverDuration = 2.0f;
+               float fakeCoverDuration = 3.0f;
+               float menuInitDelay = 2.0f;
+               float fakeCoverDelay = 1.0f;
 
                var revealingScenario = new Scenario();
 
-               revealingScenario.AddAct(() => screenCoverer.FadeIn(revealDurations.blackCover));
-               revealingScenario.AddDelay(delays.menuInit);
+               revealingScenario.AddAct(() => screenCoverer.FadeIn(blackCoverDuration));
+               revealingScenario.AddDelay(menuInitDelay);
 
                revealingScenario.AddAct(() => new MainMenuPresenter());
-               revealingScenario.AddDelay(delays.fakeCover);
-               revealingScenario.AddAct(() => screenCoverer.FadeIn(revealDurations.fakeCover));
+               revealingScenario.AddDelay(fakeCoverDelay);
 
+               revealingScenario.AddAct(() => screenCoverer.FadeIn(fakeCoverDuration));
+               revealingScenario.AddDelay(fakeCoverDuration * 0.5f);
+
+               revealingScenario.AddAct(() => screenCoverer.EnableUserInput());
                revealingScenario.Play(CoroutineOwner: this);
           }
      }

@@ -44,4 +44,14 @@ public class ScreenCoverer: MonoBehaviour
           GetCoversIfNull();
           _covers[_lastVisibleCoverIndex--].CrossFadeAlpha(Alpha.Zero, duration, IgnoreTimeScale);
      }
+
+     public void EnableUserInput()
+     {
+          _covers[0].raycastTarget = false;
+     }
+
+     public void DisableUserInput()
+     {
+          _covers[0].raycastTarget = true;
+     }
 }
