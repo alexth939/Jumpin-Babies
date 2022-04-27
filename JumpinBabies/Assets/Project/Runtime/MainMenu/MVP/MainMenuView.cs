@@ -6,6 +6,8 @@ namespace JumpinBabies.MainMenu
 {
      public class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
      {
+          [SerializeField] private GameObject _MainButtons;
+          [SerializeField] private GameObject _OptionsButtons;
           [SerializeField] private MainMenuControls _controls;
           private IMainMenuPresenter _presenter;
 
@@ -17,6 +19,7 @@ namespace JumpinBabies.MainMenu
                _presenter = sender;
 
                InitControlsSubscribers();
+               SwitchToMainControls();
                RandomizeButtonsAnimationOffset();
 
                return this;
@@ -24,13 +27,23 @@ namespace JumpinBabies.MainMenu
 
           private void InitControlsSubscribers()
           {
-               _controls.EnterOptions.onClick.AddListener(_presenter.TransitToSettings);
-               _controls.ExitOptions.onClick.AddListener(_presenter.TransitToMain);
-               _controls.Sound.onValueChanged.AddListener(_presenter.ToggleSound);
-
-               _controls.Vibration.onValueChanged.AddListener(_presenter.ToggleVibration);
                _controls.Play.onClick.AddListener(_presenter.StartGame);
                _controls.Exit.onClick.AddListener(_presenter.ExitGame);
+               _controls.EnterOptions.onClick.AddListener(_presenter.TransitToOptions);
+
+               _controls.ExitOptions.onClick.AddListener(_presenter.TransitToMain);
+               _controls.Sound.onValueChanged.AddListener(_presenter.ToggleSound);
+               _controls.Vibration.onValueChanged.AddListener(_presenter.ToggleVibration);
+          }
+
+          private void SwitchToMainControls()
+          {
+               _MainButtons.SetActive(true);
+          }
+
+          private void SwitchToOptionsControls()
+          {
+
           }
 
           private void RandomizeButtonsAnimationOffset()

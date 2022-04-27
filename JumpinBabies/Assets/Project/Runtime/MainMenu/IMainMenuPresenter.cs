@@ -2,7 +2,7 @@ namespace JumpinBabies.MainMenu
 {
      public interface IMainMenuPresenter
      {
-          void TransitToSettings();
+          void TransitToOptions();
           void TransitToMain();
           void ToggleSound(bool value);
           void ToggleVibration(bool value);

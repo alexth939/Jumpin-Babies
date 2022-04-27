@@ -51,7 +51,7 @@ namespace JumpinBabies.MainMenu
                throw new NotImplementedException();
           }
 
-          void IMainMenuPresenter.TransitToSettings()
+          void IMainMenuPresenter.TransitToOptions()
           {
                throw new NotImplementedException();
           }
