@@ -12,7 +12,7 @@ public class ScreenCoverer: MonoBehaviour
      private int _lastVisibleCoverIndex;
      private Image[] _covers;
 
-     private void Awake() => GetCoversIfNull();
+     private void Start() => GetCoversIfNull();
 
      private void GetCoversIfNull()
      {
