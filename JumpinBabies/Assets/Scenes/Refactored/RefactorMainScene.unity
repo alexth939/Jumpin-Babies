@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edb27efdf71a1f48ae7964246068267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenCoverer: {fileID: 393493151}
+  _screenCoverer: {fileID: 393493151}
 --- !u!1 &553552483
 GameObject:
   m_ObjectHideFlags: 0
