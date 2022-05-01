@@ -81,19 +81,19 @@ namespace JumpinBabies.MainMenu
                float[] randomOffsets = new float[] { 1.21f, 2.23f, 3.25f };
                float rewindDuration = 0.3f;
 
-               var playButton = _controlsCollection.Play;
-               var enterOptionsButton = _controlsCollection.EnterOptions;
-               var exitButton = _controlsCollection.Exit;
+               var playButtonAnimator = _controlsCollection.Play.GetComponent<Animator>();
+               var enterOptionsButtonAnimator = _controlsCollection.EnterOptions.GetComponent<Animator>();
+               var exitButtonAnimator = _controlsCollection.Exit.GetComponent<Animator>();
 
-               scenario.AddAct(() => playButton.GetComponent<Animator>().speed += randomOffsets[0]);
-               scenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed += randomOffsets[1]);
-               scenario.AddAct(() => exitButton.GetComponent<Animator>().speed += randomOffsets[2]);
+               scenario.AddAct(() => playButtonAnimator.speed += randomOffsets[0]);
+               scenario.AddAct(() => enterOptionsButtonAnimator.speed += randomOffsets[1]);
+               scenario.AddAct(() => exitButtonAnimator.speed += randomOffsets[2]);
 
                scenario.AddDelay(rewindDuration);
 
-               scenario.AddAct(() => playButton.GetComponent<Animator>().speed -= randomOffsets[0]);
-               scenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed -= randomOffsets[1]);
-               scenario.AddAct(() => exitButton.GetComponent<Animator>().speed -= randomOffsets[2]);
+               scenario.AddAct(() => playButtonAnimator.speed -= randomOffsets[0]);
+               scenario.AddAct(() => enterOptionsButtonAnimator.speed -= randomOffsets[1]);
+               scenario.AddAct(() => exitButtonAnimator.speed -= randomOffsets[2]);
 
                return scenario;
           }
