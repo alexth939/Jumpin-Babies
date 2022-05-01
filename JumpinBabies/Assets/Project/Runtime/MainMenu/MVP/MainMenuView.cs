@@ -4,7 +4,7 @@ using GameData;
 
 namespace JumpinBabies.MainMenu
 {
-     public class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
+     public partial class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
      {
           [SerializeField] private GameObject _mainControls;
           [SerializeField] private GameObject _optionsControls;
@@ -58,25 +58,7 @@ namespace JumpinBabies.MainMenu
 
           private void RandomizeButtonsAnimationOffset()
           {
-               Scenario randomizeScenario = new Scenario();
-               float[] randomOffsets = new float[] { 1.21f, 2.23f, 3.25f };
-               float rewindDuration = 0.3f;
-
-               var playButton = _controlsCollection.Play;
-               var enterOptionsButton = _controlsCollection.EnterOptions;
-               var exitButton = _controlsCollection.Exit;
-
-               randomizeScenario.AddAct(() => playButton.GetComponent<Animator>().speed += randomOffsets[0]);
-               randomizeScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed += randomOffsets[1]);
-               randomizeScenario.AddAct(() => exitButton.GetComponent<Animator>().speed += randomOffsets[2]);
-
-               randomizeScenario.AddDelay(rewindDuration);
-
-               randomizeScenario.AddAct(() => playButton.GetComponent<Animator>().speed -= randomOffsets[0]);
-               randomizeScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed -= randomOffsets[1]);
-               randomizeScenario.AddAct(() => exitButton.GetComponent<Animator>().speed -= randomOffsets[2]);
-
-               randomizeScenario.Play(CoroutineOwner: this);
+               GenerateRandomizeButtonsScenario().Play(CoroutineOwner: this);
           }
 
           private void OnDestroy()
@@ -87,6 +69,33 @@ namespace JumpinBabies.MainMenu
                _controlsCollection.Vibration.onValueChanged.RemoveAllListeners();
                _controlsCollection.Play.onClick.RemoveAllListeners();
                _controlsCollection.Exit.onClick.RemoveAllListeners();
+          }
+     }
+
+     public partial class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
+     {
+          private Scenario GenerateRandomizeButtonsScenario()
+          {
+               Scenario scenario = new();
+
+               float[] randomOffsets = new float[] { 1.21f, 2.23f, 3.25f };
+               float rewindDuration = 0.3f;
+
+               var playButton = _controlsCollection.Play;
+               var enterOptionsButton = _controlsCollection.EnterOptions;
+               var exitButton = _controlsCollection.Exit;
+
+               scenario.AddAct(() => playButton.GetComponent<Animator>().speed += randomOffsets[0]);
+               scenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed += randomOffsets[1]);
+               scenario.AddAct(() => exitButton.GetComponent<Animator>().speed += randomOffsets[2]);
+
+               scenario.AddDelay(rewindDuration);
+
+               scenario.AddAct(() => playButton.GetComponent<Animator>().speed -= randomOffsets[0]);
+               scenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed -= randomOffsets[1]);
+               scenario.AddAct(() => exitButton.GetComponent<Animator>().speed -= randomOffsets[2]);
+
+               return scenario;
           }
      }
 }
