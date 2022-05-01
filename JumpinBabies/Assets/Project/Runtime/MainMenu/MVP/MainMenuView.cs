@@ -6,9 +6,10 @@ namespace JumpinBabies.MainMenu
 {
      public class MainMenuView: MonoBehaviour, IMainMenuView, IBinder<IMainMenuView, IMainMenuPresenter>
      {
-          [SerializeField] private GameObject _MainButtons;
-          [SerializeField] private GameObject _OptionsButtons;
-          [SerializeField] private MainMenuControls _controls;
+          [SerializeField] private GameObject _mainControls;
+          [SerializeField] private GameObject _optionsControls;
+
+          [SerializeField] private MainMenuControls _controlsCollection;
           private IMainMenuPresenter _presenter;
 
           public IMainMenuView Bind(IMainMenuPresenter sender)
@@ -27,13 +28,13 @@ namespace JumpinBabies.MainMenu
 
           private void InitControlsSubscribers()
           {
-               _controls.Play.onClick.AddListener(_presenter.StartGame);
-               _controls.Exit.onClick.AddListener(_presenter.ExitGame);
-               _controls.EnterOptions.onClick.AddListener(_presenter.TransitToOptions);
+               _controlsCollection.Play.onClick.AddListener(_presenter.StartGame);
+               _controlsCollection.Exit.onClick.AddListener(_presenter.ExitGame);
+               _controlsCollection.EnterOptions.onClick.AddListener(_presenter.TransitToOptions);
 
-               _controls.ExitOptions.onClick.AddListener(_presenter.TransitToMain);
-               _controls.Sound.onValueChanged.AddListener(_presenter.ToggleSound);
-               _controls.Vibration.onValueChanged.AddListener(_presenter.ToggleVibration);
+               _controlsCollection.ExitOptions.onClick.AddListener(_presenter.TransitToMain);
+               _controlsCollection.Sound.onValueChanged.AddListener(_presenter.ToggleSound);
+               _controlsCollection.Vibration.onValueChanged.AddListener(_presenter.ToggleVibration);
           }
 
           private void SwitchToMainControls()
@@ -48,13 +49,12 @@ namespace JumpinBabies.MainMenu
 
           private void RandomizeButtonsAnimationOffset()
           {
-               float[] randomOffset = new float[] { 1.21f, 2.23f, 3.25f };
-
-               var playButton = _controls.Play;
-               var enterOptionsButton = _controls.EnterOptions;
-               var exitButton = _controls.Exit;
-
                Scenario randomizeScenario = new Scenario();
+               float[] randomOffsets = new float[] { 1.21f, 2.23f, 3.25f };
+
+               var playButton = _controlsCollection.Play;
+               var enterOptionsButton = _controlsCollection.EnterOptions;
+               var exitButton = _controlsCollection.Exit;
 
                randomizeScenario.AddAct(() => playButton.GetComponent<Animator>().speed += randomOffset[0]);
                randomizeScenario.AddAct(() => enterOptionsButton.GetComponent<Animator>().speed += randomOffset[1]);
@@ -71,12 +71,12 @@ namespace JumpinBabies.MainMenu
 
           private void OnDestroy()
           {
-               _controls.EnterOptions.onClick.RemoveAllListeners();
-               _controls.ExitOptions.onClick.RemoveAllListeners();
-               _controls.Sound.onValueChanged.RemoveAllListeners();
-               _controls.Vibration.onValueChanged.RemoveAllListeners();
-               _controls.Play.onClick.RemoveAllListeners();
-               _controls.Exit.onClick.RemoveAllListeners();
+               _controlsCollection.EnterOptions.onClick.RemoveAllListeners();
+               _controlsCollection.ExitOptions.onClick.RemoveAllListeners();
+               _controlsCollection.Sound.onValueChanged.RemoveAllListeners();
+               _controlsCollection.Vibration.onValueChanged.RemoveAllListeners();
+               _controlsCollection.Play.onClick.RemoveAllListeners();
+               _controlsCollection.Exit.onClick.RemoveAllListeners();
           }
      }
 }
