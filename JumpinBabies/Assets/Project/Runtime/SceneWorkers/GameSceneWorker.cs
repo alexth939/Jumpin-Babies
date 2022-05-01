@@ -1,6 +1,6 @@
 namespace JumpinBabies.SceneWorkers
 {
-     sealed class GameSceneWorker: SceneWorker
+     internal sealed class GameSceneWorker: SceneWorker
      {
           protected override void EnteringScene()
           {

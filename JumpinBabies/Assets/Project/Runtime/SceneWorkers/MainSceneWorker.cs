@@ -3,7 +3,7 @@ using JumpinBabies.MainMenu;
 
 namespace JumpinBabies.SceneWorkers
 {
-     sealed class MainSceneWorker: SceneWorker
+     internal sealed class MainSceneWorker: SceneWorker
      {
           [SerializeField] private ScreenCoverer _screenCoverer;
 

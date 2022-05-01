@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace JumpinBabies.SceneWorkers
 {
      [DisallowMultipleComponent]
-     public abstract class SceneWorker: MonoBehaviour
+     internal abstract class SceneWorker: MonoBehaviour
      {
           protected void Start()
           {

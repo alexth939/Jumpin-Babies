@@ -4,7 +4,7 @@ using static System.Threading.Tasks.DelegateGenerator;
 
 namespace JumpinBabies.SceneWorkers
 {
-     public class StartupSceneWorker: SceneWorker
+     internal sealed class StartupSceneWorker: SceneWorker
      {
           protected override void EnteringScene()
           {
