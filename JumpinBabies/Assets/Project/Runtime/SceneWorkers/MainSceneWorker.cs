@@ -5,7 +5,7 @@ namespace JumpinBabies.SceneWorkers
 {
      sealed class MainSceneWorker: SceneWorker
      {
-          [SerializeField] private ScreenCoverer screenCoverer;
+          [SerializeField] private ScreenCoverer _screenCoverer;
 
           protected override void EnteringScene()
           {
@@ -16,16 +16,16 @@ namespace JumpinBabies.SceneWorkers
 
                var revealingScenario = new Scenario();
 
-               revealingScenario.AddAct(() => screenCoverer.FadeIn(blackCoverDuration));
+               revealingScenario.AddAct(() => _screenCoverer.FadeIn(blackCoverDuration));
                revealingScenario.AddDelay(menuInitDelay);
 
-               revealingScenario.AddAct(() => new MainMenuPresenter());
+               revealingScenario.AddAct(() => new MainMenuPresenter(_screenCoverer));
                revealingScenario.AddDelay(fakeCoverDelay);
 
-               revealingScenario.AddAct(() => screenCoverer.FadeIn(fakeCoverDuration));
+               revealingScenario.AddAct(() => _screenCoverer.FadeIn(fakeCoverDuration));
                revealingScenario.AddDelay(fakeCoverDuration * 0.5f);
+               revealingScenario.AddAct(() => _screenCoverer.EnableUserInput());
 
-               revealingScenario.AddAct(() => screenCoverer.EnableUserInput());
                revealingScenario.Play(CoroutineOwner: this);
           }
      }
