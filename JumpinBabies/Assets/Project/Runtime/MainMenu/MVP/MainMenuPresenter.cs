@@ -21,7 +21,7 @@ namespace JumpinBabies.MainMenu
                _screenCoverer = covererInstance;
 #warning for release:
                //_settingsTemplate = _settingsProvider.AllSettings;
-               _settingsTemplate = new GameSettingsModel();
+               _settingsTemplate = new GameSettingsModel() { Sound = false, Vibration = true };
           }
 
           private void BindToView(out IMainMenuView view)
@@ -66,7 +66,7 @@ namespace JumpinBabies.MainMenu
                scenario.AddAct(() => _screenCoverer.FadeOut(_crossFadeDuration));
                scenario.AddDelay(_crossFadeDuration);
 
-               scenario.AddAct(_view.SwitchToOptionsControls);
+               scenario.AddAct(()=>_view.SwitchToOptionsView(_settingsTemplate));
                scenario.AddAct(() => _screenCoverer.FadeIn(_crossFadeDuration));
                scenario.AddDelay(fadeHalfDuration);
 
@@ -89,7 +89,7 @@ namespace JumpinBabies.MainMenu
                // todo 3. delay 1? sec (to play the animation at least for 1? sec)
                // todo 4. wait for saveDone
 
-               scenario.AddAct(_view.SwitchToMainControls);
+               scenario.AddAct(_view.SwitchToMainView);
                scenario.AddAct(() => _screenCoverer.FadeIn(_crossFadeDuration));
                scenario.AddDelay(fadeHalfDuration);
 

@@ -1,8 +1,10 @@
+using GameData;
+
 namespace JumpinBabies.MainMenu
 {
      public interface IMainMenuView
      {
-          void SwitchToOptionsControls();
-          void SwitchToMainControls();
+          void SwitchToOptionsView(GameSettingsModel settings);
+          void SwitchToMainView();
      }
 }

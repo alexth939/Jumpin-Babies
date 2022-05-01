@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using GameData;
 
 namespace JumpinBabies.MainMenu
 {
@@ -20,7 +20,7 @@ namespace JumpinBabies.MainMenu
                _presenter = sender;
 
                InitControlsSubscribers();
-               (this as IMainMenuView).SwitchToMainControls();
+               (this as IMainMenuView).SwitchToMainView();
                RandomizeButtonsAnimationOffset();
 
                return this;
@@ -37,16 +37,23 @@ namespace JumpinBabies.MainMenu
                _controlsCollection.Vibration.onValueChanged.AddListener(_presenter.ToggleVibration);
           }
 
-          void IMainMenuView.SwitchToMainControls()
+          void IMainMenuView.SwitchToMainView()
           {
                _mainControls.SetActive(true);
                _optionsControls.SetActive(false);
           }
 
-          void IMainMenuView.SwitchToOptionsControls()
+          void IMainMenuView.SwitchToOptionsView(GameSettingsModel settings)
           {
                _optionsControls.SetActive(true);
                _mainControls.SetActive(false);
+               FillOptionsParameters(settings);
+          }
+
+          private void FillOptionsParameters(GameSettingsModel settings)
+          {
+               _controlsCollection.Sound.isOn = settings.Sound;
+               _controlsCollection.Vibration.isOn = settings.Vibration;
           }
 
           private void RandomizeButtonsAnimationOffset()
