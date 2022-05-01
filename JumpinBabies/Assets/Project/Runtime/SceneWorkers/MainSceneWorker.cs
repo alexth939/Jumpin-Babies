@@ -9,24 +9,24 @@ namespace JumpinBabies.SceneWorkers
 
           protected override void EnteringScene()
           {
-               float blackCoverDuration = 2.0f;
-               float fakeCoverDuration = 3.0f;
-               float menuInitDelay = 2.0f;
-               float fakeCoverDelay = 1.0f;
+               GenerateRevealMenuScenario().Play(CoroutineOwner: this);
+          }
 
-               var revealingScenario = new Scenario();
+          private Scenario GenerateRevealMenuScenario()
+          {
+               Scenario scenario = new();
 
-               revealingScenario.AddAct(() => _screenCoverer.FadeIn(blackCoverDuration));
-               revealingScenario.AddDelay(menuInitDelay);
+               scenario.AddAct(() => _screenCoverer.FadeIn(duration: 2.0f));
+               scenario.AddDelay(duration: 2.0f);
 
-               revealingScenario.AddAct(() => new MainMenuPresenter(_screenCoverer));
-               revealingScenario.AddDelay(fakeCoverDelay);
+               scenario.AddAct(() => new MainMenuPresenter(_screenCoverer));
+               scenario.AddDelay(duration: 1.0f);
 
-               revealingScenario.AddAct(() => _screenCoverer.FadeIn(fakeCoverDuration));
-               revealingScenario.AddDelay(fakeCoverDuration * 0.5f);
-               revealingScenario.AddAct(() => _screenCoverer.EnableUserInput());
+               scenario.AddAct(() => _screenCoverer.FadeIn(duration: 3.0f));
+               scenario.AddDelay(duration: 1.5f);
+               scenario.AddAct(() => _screenCoverer.EnableUserInput());
 
-               revealingScenario.Play(CoroutineOwner: this);
+               return scenario;
           }
      }
 }
